@@ -1,6 +1,6 @@
 import React from "react";
 import '../css/formfiled.css'
-import { Box, Typography, TextField, Stack, FormControl } from "@mui/material";
+import { Box, Typography, TextField, Stack, Button } from "@mui/material";
 import {styled } from '@mui/material/styles';
 
 const CssTextField = styled(TextField)({
@@ -24,7 +24,24 @@ const CssTextField = styled(TextField)({
   },
 });
 
-
+const Btns = styled(Button)({
+  fontSize: 16,
+  padding: '6px 12px',
+  border: '1px solid',
+  borderRadius:'30px',
+  lineHeight: 1.5,
+  backgroundColor: '#89CFF0',
+  borderColor: '#89CFF0',
+  color:"white",
+  '&:active': {
+    boxShadow: 'none',
+    backgroundColor: '#89CFF0',
+    borderColor: '#005cbf',
+  },
+  '&:focus': {
+    boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+  },
+});
 export const Login = () => {
 
   return (
@@ -43,6 +60,10 @@ export const Login = () => {
         <CssTextField label="email" className="inputRounded" id="custom-css-outlined-input" />
 
         <CssTextField label="password" className="inputRounded" id="custom-css-outlined-input" />
+
+        <Btns> Login </Btns>
+        <Btns> Register </Btns>
+
       </Stack>
     </Box>
   );
