@@ -1,10 +1,11 @@
 import React from "react";
 import '../css/formfiled.css'
 import { Box, Typography, TextField, Stack, Button } from "@mui/material";
-import {styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
+import { Link, useNavigate } from "react-router-dom";
 
-const CssTextField = styled(TextField)({
-  width:'300px',
+export const CssTextField = styled(TextField)({
+  width: '300px',
   '& label.Mui-focused': {
     color: 'green',
   },
@@ -24,15 +25,15 @@ const CssTextField = styled(TextField)({
   },
 });
 
-const Btns = styled(Button)({
+export const Btns = styled(Button)({
   fontSize: 16,
   padding: '6px 12px',
   border: '1px solid',
-  borderRadius:'30px',
+  borderRadius: '30px',
   lineHeight: 1.5,
   backgroundColor: '#89CFF0',
   borderColor: '#89CFF0',
-  color:"white",
+  color: "white",
   '&:active': {
     boxShadow: 'none',
     backgroundColor: '#89CFF0',
@@ -43,7 +44,6 @@ const Btns = styled(Button)({
   },
 });
 export const Login = () => {
-
   return (
     <Box
       sx={{ background: "linear-gradient(to right bottom, #36EAEF, #6B0AC9)" }}
@@ -54,7 +54,7 @@ export const Login = () => {
       height="100vh"
     >
       <Stack spacing={1}>
-        <Typography sx={{ color: "white", alignItems:"center", pl:{lg:"30px", md:"20px", xs:"10px"} }} fontSize="30px" fontWeight="bold">
+        <Typography sx={{ color: "white", alignItems: "center", pl: { lg: "30px", md: "20px", xs: "10px" } }} fontSize="30px" fontWeight="bold">
           Online banking
         </Typography>
         <CssTextField label="email" className="inputRounded" id="custom-css-outlined-input" />
@@ -62,8 +62,10 @@ export const Login = () => {
         <CssTextField label="password" className="inputRounded" id="custom-css-outlined-input" />
 
         <Btns> Login </Btns>
-        <Btns> Register </Btns>
 
+        <Link to="/register" style={{ display: 'contents' }}>
+          <Btns sx={{ mt: "7px" }} > Register </Btns>
+        </Link>
       </Stack>
     </Box>
   );
