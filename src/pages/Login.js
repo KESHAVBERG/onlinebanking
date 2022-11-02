@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import '../css/formfiled.css'
 import { Box, Typography, TextField, Stack, Button } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { Link, useNavigate } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 export const CssTextField = styled(TextField)({
   width: '300px',
@@ -13,9 +15,9 @@ export const CssTextField = styled(TextField)({
     borderBottomColor: 'green',
   },
   '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: 'white',
-    },
+    // '& fieldset': {
+    //   borderColor: 'white',
+    // },
     '&:hover fieldset': {
       borderColor: 'yellow',
     },
@@ -44,6 +46,22 @@ export const Btns = styled(Button)({
   },
 });
 export const Login = () => {
+  const [emailRef, setEmailRef] = useState('');
+  const [passwordRef, setPasswordRef] = useState('');
+  const [error, setError] = useState('');
+
+  async function login(e) {
+    e.preventDefault();
+    console.log(emailRef);
+    await signInWithEmailAndPassword(auth, emailRef, passwordRef).then(user => {
+        console.log(user);
+    }).catch((error) => {
+        const errorMessage = error.message;
+        setError(errorMessage);
+        console.log(errorMessage)
+    });
+}
+
   return (
     <Box
       sx={{ background: "linear-gradient(to right bottom, #36EAEF, #6B0AC9)" }}
@@ -57,15 +75,18 @@ export const Login = () => {
         <Typography sx={{ color: "white", alignItems: "center", pl: { lg: "30px", md: "20px", xs: "10px" } }} fontSize="30px" fontWeight="bold">
           Online banking
         </Typography>
-        <CssTextField label="email" className="inputRounded" id="custom-css-outlined-input" />
+        <CssTextField label="email" className="inputRounded" onChange={(e) => { setEmailRef(e.target.value) }}  id="custom-css-outlined-input" />
 
-        <CssTextField label="password" className="inputRounded" id="custom-css-outlined-input" />
+        <CssTextField label="password" className="inputRounded" onChange={(e) => { setPasswordRef(e.target.value) }}  id="custom-css-outlined-input" />
 
-        <Btns> Login </Btns>
+        <Btns onClick={login}> Login </Btns>
 
         <Link to="/register" style={{ display: 'contents' }}>
           <Btns sx={{ mt: "7px" }} > Register </Btns>
         </Link>
+
+        <p>{error.replace("Firebase:","")}</p>
+
       </Stack>
     </Box>
   );
