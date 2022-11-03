@@ -29,7 +29,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path='/' element={currentUser?<Home />:<Login />} />
+          <Route path='/' element={currentUser?<Home user={currentUser}/>:<Login />} />
           <Route path='/register' element={<Register />} />
         </Routes>
       </Router>
