@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { getAuth, signOut } from "firebase/auth";
-import { collection, addDoc, setDoc } from "firebase/firestore"; 
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 
 import { auth, db } from "../firebase";
 import { Box, Typography, Button, Toolbar, AppBar, Stack } from "@mui/material";
@@ -9,17 +9,25 @@ import { CssTextField, Btns } from './Login'
 
 
 
-export const Home = ({user}) => {
-  const [name, setName]= useState("");
+export const Home = ({ user }) => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [amount, setAmount] = useState("");
 
-  async function addAmount(e){
+  async function addAmount(e) {
     e.preventDefault();
-    try{
-      // const userRef = setDoc(collectio)
+    try {
+      const amountRef = doc(db, `users/${user.uid}/amount/`,`${Math.random().toString()}`)
+      await setDoc(amountRef, {
+        name:name,
+        email:email,
+        amount:amount
+      })
+      setAmount("")
+      setEmail("")
+      setName("")
       console.log(user.uid)
-    }catch(e){
+    } catch (e) {
       console.log(e)
     }
   }
@@ -51,10 +59,10 @@ export const Home = ({user}) => {
         minHeight="100vh"
         height="100vh">
         <Stack spacing={2}>
-          <CssTextField label="name" className="inputRounded" onChange={(e)=>{setName(e.target.value)}}/>
-          <CssTextField label="email" className="inputRounded" onChange={(e)=>{setEmail(e.target.value)}} />
-          <CssTextField label="amount" className="inputRounded" onChange={(e)=>{setAmount(e.target.value)}}/>
-          <Btns sx={{backgroundcolor:"blue"}} onClick={addAmount}>Send</Btns>
+          <CssTextField label="name" className="inputRounded" onChange={(e) => { setName(e.target.value) }} />
+          <CssTextField label="email" className="inputRounded" onChange={(e) => { setEmail(e.target.value) }} />
+          <CssTextField label="amount" className="inputRounded" onChange={(e) => { setAmount(e.target.value) }} />
+          <Btns sx={{ backgroundcolor: "blue" }} onClick={addAmount}>Send</Btns>
 
         </Stack>
 
