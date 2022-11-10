@@ -6,6 +6,7 @@ import { Route, Routes, Link, BrowserRouter as Router } from 'react-router-dom'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from './firebase';
 import { useEffect, useState } from 'react';
+import { History } from './pages/History';
 
 function App() {
 
@@ -31,6 +32,8 @@ function App() {
         <Routes>
           <Route path='/' element={currentUser?<Home user={currentUser}/>:<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/history' element={<History />} />
+
         </Routes>
       </Router>
     </div>

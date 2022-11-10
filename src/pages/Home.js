@@ -1,18 +1,26 @@
 import React, { useState } from "react";
-import { getAuth, signOut } from "firebase/auth";
-import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import {signOut } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
 
 import { auth, db } from "../firebase";
 import { Box, Typography, Button, Toolbar, AppBar, Stack } from "@mui/material";
 
 import { CssTextField, Btns } from './Login'
 
+import { Link, useNavigate } from "react-router-dom";
 
 
 export const Home = ({ user }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [amount, setAmount] = useState("");
+
+  const navigate = useNavigate();
+
+  const navigateToHistory= () => {
+    // 👇️ navigate to /contacts
+    navigate('/history');
+  };
 
   async function addAmount(e) {
     e.preventDefault();
@@ -49,7 +57,7 @@ export const Home = ({ user }) => {
           >
             Logout
           </Button>
-          <Button color="inherit">History</Button>
+          <Button onClick={navigateToHistory} color="inherit">History</Button>
         </Toolbar>
       </AppBar>
 
