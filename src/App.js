@@ -8,6 +8,7 @@ import { auth } from './firebase';
 import { useEffect, useState } from 'react';
 import { History } from './pages/History';
 
+
 function App() {
 
   const [currentUser, setUser] = useState(null);
@@ -19,7 +20,6 @@ function App() {
         email: user.email,
       }
       if(user){
-        console.log(user);
         setUser(userDetails);
       }else{
         setUser(null);
@@ -32,7 +32,7 @@ function App() {
         <Routes>
           <Route path='/' element={currentUser?<Home user={currentUser}/>:<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/history' element={<History />} />
+          <Route path='/history' element={<History user={currentUser}/>} />
 
         </Routes>
       </Router>
